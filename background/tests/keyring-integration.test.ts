@@ -11,14 +11,23 @@ import { EIP1559TransactionRequest } from "../networks"
 import { ETH, ETHEREUM } from "../constants"
 import logger from "../lib/logger"
 
-const originalCrypto = global.crypto
+// Below, we replace any existing crypto.subtle implementation with the Node
+// one. jsdom ships with an ad hoc, informally-specified, bug-ridden
+// implementation of half of WebCrypto, but that includes securing the `crypto`
+// variable to prevent it from being replaced, which manes we have to dig into
+// the object instead of being able to replace the top-level variable.
+const originalCryptoSubtle = globalThis.crypto?.subtle
 beforeEach(() => {
   // polyfill the WebCrypto API
-  global.crypto = webcrypto as unknown as Crypto
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  globalThis.crypto.subtle = (webcrypto as unknown as Crypto).subtle
 })
 
 afterEach(() => {
-  global.crypto = originalCrypto
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  globalThis.crypto.subtle = originalCryptoSubtle
 })
 
 const validMnemonics = {
