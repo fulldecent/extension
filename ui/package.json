@@ -54,6 +54,7 @@
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
+    "@reduxjs/toolkit": "^1.9.4",
     "@types/react-transition-group": "^4.4.4",
     "@types/zxcvbn": "^4.4.1",
     "webext-redux": "^2.1.7"

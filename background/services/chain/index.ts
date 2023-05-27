@@ -1706,6 +1706,9 @@ export default class ChainService extends BaseService<Events> {
       logger.error(`Error emitting tx ${finalTransaction}`, error)
     }
     if (error) {
+      // We don't control the errors in the whole stack, but we do want to
+      // rethrow them regardless.
+      // eslint-disable-next-line @typescript-eslint/no-throw-literal
       throw error
     }
   }

@@ -228,7 +228,7 @@ const reduxCache: Middleware = (store) => (next) => (action) => {
 
 // Declared out here so ReduxStoreType can be used in Main.store type
 // declaration.
-const initializeStore = (preloadedState = {}, main: Main) =>
+const initializeStore = (preloadedState: object, main: Main) =>
   configureStore({
     preloadedState,
     reducer: rootReducer,
