@@ -8,6 +8,15 @@
   "author": "Matt Luongo <matt@thesis.co>",
   "license": "GPL-3.0",
   "jest": {
+    "reporters": [
+      [
+        "github-actions",
+        {
+          "silent": false
+        }
+      ],
+      "default"
+    ],
     "setupFiles": [
       "fake-indexeddb/auto",
       "jest-webextension-mock",
