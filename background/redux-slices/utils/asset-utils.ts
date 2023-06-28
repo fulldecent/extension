@@ -380,7 +380,11 @@ export function isUnverifiedAssetByUser(asset: AnyAsset | undefined): boolean {
 type AssetType = "base" | "erc20"
 
 export type AssetID = `${AssetType}/${string}`
+export type FullAssetID = `${string}/${AssetID}`
 
+/**
+ * Returns a short string that can be used as an identifier for an asset
+ */
 export const getAssetID = (
   asset: NetworkBaseAsset | SmartContractFungibleAsset
 ): AssetID => {
@@ -389,6 +393,16 @@ export const getAssetID = (
   }
 
   return `erc20/${asset.contractAddress}`
+}
+
+export const getFullAssetID = (
+  asset: NetworkBaseAsset | SmartContractFungibleAsset
+): FullAssetID => {
+  if (isNetworkBaseAsset(asset)) {
+    return `${asset.chainID}/${getAssetID(asset)}`
+  }
+
+  return `${asset.homeNetwork.chainID}/${getAssetID(asset)}`
 }
 
 /**
